@@ -4,10 +4,7 @@ import com.ecommerce.constants.Category;
 import com.ecommerce.constants.Size;
 import com.ecommerce.constants.Tag;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Product {
 
     @Id

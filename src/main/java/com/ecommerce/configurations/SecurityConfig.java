@@ -26,6 +26,8 @@ public class SecurityConfig {
     private static final String[] WHITELIST_URL = {
             "/login",
             "/register",
+            "/add/product",
+            "/add/products"
 
     };
 
@@ -59,47 +61,3 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 }
-
-/*
-
-@Configuration
-@AllArgsConstructor
-public class SecurityConfig {
-
-    private JwtFilter jwtFilter;
-    private UserDetailsService userDetailsService;
-    private static final String[] WHITELIST_URL = {"/login", "/ok", "/register", "/validate/token"} ;
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(c -> c.disable())
-                .authorizeHttpRequests(c -> c.requestMatchers(WHITELIST_URL)
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
-                .sessionManagement(c-> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider s = new DaoAuthenticationProvider();
-        s.setUserDetailsService(userDetailsService);
-        s.setPasswordEncoder(encoder());
-        return s;
-    }
-
-    @Bean
-    public AuthenticationManager manager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
-}
-
- */
