@@ -1,12 +1,11 @@
 package com.ecommerce.controller;
 
 import com.ecommerce.requests.AddProductRequest;
+import com.ecommerce.response.ProductResponse;
 import com.ecommerce.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,4 +24,20 @@ public class ProductController {
     public ResponseEntity<String> addProducts(@RequestBody List<AddProductRequest> req){
         return ResponseEntity.ok(productService.addProducts(req));
     }
+
+    @GetMapping("product/{id}")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable int id){
+        return ResponseEntity.ok(productService.getProductById(id));
+    }
+
+    @GetMapping("products")
+    public ResponseEntity<List<ProductResponse>> getProductsByCategory(@RequestParam String category){
+        return ResponseEntity.ok(productService.getProductsByCategory(category));
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getAllCategories(){
+        return ResponseEntity.ok(productService.getAllCategories());
+    }
+
 }

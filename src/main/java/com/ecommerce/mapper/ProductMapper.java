@@ -2,6 +2,7 @@ package com.ecommerce.mapper;
 
 import com.ecommerce.entity.Product;
 import com.ecommerce.requests.AddProductRequest;
+import com.ecommerce.response.ProductResponse;
 
 public class ProductMapper {
 
@@ -15,6 +16,20 @@ public class ProductMapper {
                 .sizes(req.getSizes())
                 .categories(req.getCategories())
                 .tags(req.getTags())
+                .build();
+    }
+
+    public static ProductResponse getProduct(Product details){
+        return ProductResponse.builder()
+                .productId(details.getProductId())
+                .productName(details.getProductName())
+                .quantity(details.getQuantity())
+                .description(details.getDescription())
+                .cost(details.getCost())
+                .discount(details.getDiscount())
+                .sizes(details.getSizes())
+                .categories(details.getCategories())
+                .tags(details.getTags())
                 .build();
     }
 }
