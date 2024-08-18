@@ -24,6 +24,7 @@ public class Product {
     private String description;
     private double cost;
     private int discount;
+    private String imageUrl;
 
     @CollectionTable
     @Enumerated(EnumType.STRING)

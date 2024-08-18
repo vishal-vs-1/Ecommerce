@@ -27,8 +27,8 @@ public class SecurityConfig {
             "/login",
             "/register",
             "/add/product",
-            "/add/products"
-
+            "/add/products",
+            "/products"
     };
 
     @Bean
@@ -39,6 +39,7 @@ public class SecurityConfig {
                         req -> req.requestMatchers(WHITELIST_URL).permitAll()
                                 .anyRequest().authenticated()
                 )
+
                 .sessionManagement(c-> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }

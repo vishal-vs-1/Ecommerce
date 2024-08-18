@@ -16,6 +16,7 @@ public class ProductMapper {
                 .sizes(req.getSizes())
                 .categories(req.getCategories())
                 .tags(req.getTags())
+                .imageUrl(req.getImageUrl())
                 .build();
     }
 
@@ -30,6 +31,7 @@ public class ProductMapper {
                 .sizes(details.getSizes())
                 .categories(details.getCategories())
                 .tags(details.getTags())
+                .imageUrl(details.getImageUrl())
                 .build();
     }
 }

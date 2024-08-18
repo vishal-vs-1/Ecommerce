@@ -29,7 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = UserMapper.registerUserMapper(req);
         User pUser = userRepository.save(user);
         String token = jwtService.generateToken(pUser);
-        return "User Registered Successfully - \n token = " + token;
+        return token;
     }
 
     @Override

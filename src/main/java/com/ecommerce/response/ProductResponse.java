@@ -18,6 +18,7 @@ public class ProductResponse {
     private String description;
     private double cost;
     private int discount;
+    private String imageUrl;
     private List<Size> sizes;
     private List<Category> categories;
     private List<Tag> tags;

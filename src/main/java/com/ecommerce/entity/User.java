@@ -23,13 +23,23 @@ public class User {
     private Long phoneNo;
     private String token;
     @OneToMany
-    @JoinColumn(name = "addressId")
+    @JoinColumn(name = "userId")
 	private List<Address> address;
 
-    @ManyToMany
-	private List<Product> product;
+    @OneToMany
+    @JoinColumn(name = "userId")
+	private List<CartItem> cartItems;
 
     @OneToMany
     @JoinColumn(name = "reviewId")
     private List<Review> reviews;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"),
+                inverseJoinColumns = @JoinColumn(name = "roleId"))
+    private List<Role> roles;
+
+    @OneToMany
+    @JoinColumn(name = "userId")
+    private List<Order> orders;
 }
