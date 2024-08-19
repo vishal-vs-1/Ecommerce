@@ -80,6 +80,17 @@ public class ProductServiceImpl implements ProductService {
         return categoriesList;
     }
 
+    @Override
+    public List<ProductResponse> getPopularProducts() {
+        List<ProductResponse> list = productRepository.findPopularProducts().stream().map(ProductMapper::getProduct).toList();
+        return list;
+    }
+
+    @Override
+    public List<ProductResponse> getNewCollection() {
+        List<ProductResponse> list = productRepository.findNewCollections().stream().map(ProductMapper::getProduct).toList();
+        return list;
+    }
 
 
 }

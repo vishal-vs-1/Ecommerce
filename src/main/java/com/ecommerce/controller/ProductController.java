@@ -40,4 +40,14 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllCategories());
     }
 
+    @GetMapping("/products/popular")
+    public ResponseEntity<List<ProductResponse>> getPopularProducts(){
+        return ResponseEntity.ok(productService.getPopularProducts());
+    }
+
+    @GetMapping("/products/nc")
+    public ResponseEntity<List<ProductResponse>> getNewCollection(){
+        return ResponseEntity.ok(productService.getNewCollection());
+    }
+
 }

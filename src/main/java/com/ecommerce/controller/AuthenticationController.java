@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @Validated
-@CrossOrigin
 public class AuthenticationController {
 
     private final AuthenticationService service;

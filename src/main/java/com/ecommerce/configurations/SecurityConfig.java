@@ -28,7 +28,8 @@ public class SecurityConfig {
             "/register",
             "/add/product",
             "/add/products",
-            "/products"
+            "/products",
+            "products/*"
     };
 
     @Bean

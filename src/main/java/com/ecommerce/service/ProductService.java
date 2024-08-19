@@ -18,4 +18,8 @@ public interface ProductService {
     List<ProductResponse> getProductsByCategory(String category);
 
     List<String> getAllCategories();
+
+    List<ProductResponse> getPopularProducts();
+
+    List<ProductResponse> getNewCollection();
 }
