@@ -1,5 +1,6 @@
 package com.ecommerce.entity;
 
+import com.ecommerce.constants.Size;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,5 +20,7 @@ public class CartItem {
     private int productId;
     private int productName;
     private int quantity;
+    @Enumerated(EnumType.STRING)
+    private Size size;
 
 }

@@ -88,6 +88,15 @@ public class UserServiceImpl implements UserService {
         return "";
     }
 
+    @Override
+    public int getCarItemsCount() {
+        User user = getUser();
+        if(user.getCartItems() == null || user.getCartItems().isEmpty())
+            return 0;
+        else
+            return user.getCartItems().size();
+    }
+
     private Double checkoutCart(User user) {
         double finalPrice = 0.0d;
         for (CartItem cartItem : user.getCartItems()) {

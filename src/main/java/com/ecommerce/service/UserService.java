@@ -9,5 +9,6 @@ public interface UserService {
     void addProductToCart(AddToCartRequest req);
     String removeProductFromCart(int id);
     String orderItems();
+    int getCarItemsCount();
 
 }

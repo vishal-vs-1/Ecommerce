@@ -10,6 +10,7 @@ public class CartItemMapper {
                 .productName(req.getProductName())
                 .productId(req.getProductId())
                 .quantity(req.getQuantity())
+                .size(req.getSize())
                 .build();
     }
 }
