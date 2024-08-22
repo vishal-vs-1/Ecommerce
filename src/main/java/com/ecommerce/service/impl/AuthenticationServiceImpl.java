@@ -7,6 +7,7 @@ import com.ecommerce.requests.AuthenticateRequest;
 import com.ecommerce.requests.RegistrationRequest;
 import com.ecommerce.security.filters.jwt.JWTService;
 import com.ecommerce.service.AuthenticationService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 

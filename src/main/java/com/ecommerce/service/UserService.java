@@ -1,6 +1,7 @@
 package com.ecommerce.service;
 
 import com.ecommerce.requests.AddToCartRequest;
+import com.ecommerce.response.CartItemResponse;
 
 import java.util.List;
 
@@ -10,5 +11,6 @@ public interface UserService {
     String removeProductFromCart(int id);
     String orderItems();
     int getCarItemsCount();
+    List<CartItemResponse> getUserCartItems();
 
 }

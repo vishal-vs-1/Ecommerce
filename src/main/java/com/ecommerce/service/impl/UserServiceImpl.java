@@ -1,5 +1,6 @@
 package com.ecommerce.service.impl;
 
+import com.ecommerce.dto.CartProductDto;
 import com.ecommerce.entity.CartItem;
 import com.ecommerce.entity.Product;
 import com.ecommerce.entity.User;
@@ -12,7 +13,9 @@ import com.ecommerce.repository.OrderRepository;
 import com.ecommerce.repository.ProductRepository;
 import com.ecommerce.repository.UserRepository;
 import com.ecommerce.requests.AddToCartRequest;
+import com.ecommerce.response.CartItemResponse;
 import com.ecommerce.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,12 +23,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-
     private CartItemRepository cartItemRepo;
+
     private UserRepository userRepo;
     private ProductRepository productRepo;
     private OrderRepository orderRepo;
@@ -51,7 +56,37 @@ public class UserServiceImpl implements UserService {
             if (!isPresent) {
                 cartItems.add(cartItemRepo.save(cartItem));
             }
+            user.setCartItems(cartItems);
         }
+    }
+
+    @Override
+    public List<CartItemResponse> getUserCartItems() {
+        User user = getUser();
+        List<CartItemResponse> list = new ArrayList<>();
+        if (user.getCartItems() == null || user.getCartItems().isEmpty())
+            return list;
+        for (CartItem cartItem : user.getCartItems()) {
+
+            CartProductDto cartProductDto =
+                    productRepo.getInfoForCartResponse(cartItem
+                                    .getProductId())
+                            .orElseThrow(
+                                    () -> new ProductNotFoundException("CRITICAL.PRODUCT.NOT.FOUND")
+                            );
+
+            double price = cartProductDto.getCost() - ((cartProductDto.getCost() * cartProductDto.getDiscount()) / 100.0);
+
+            list.add(CartItemResponse.builder()
+                    .productId(cartItem.getProductId())
+                    .imageUrl(cartProductDto.getImageUrl())
+                    .productName(cartItem.getProductName())
+                    .price(price)
+                    .quantity(cartItem.getQuantity())
+                    .build());
+        }
+
+        return list;
     }
 
     @Override
@@ -78,10 +113,10 @@ public class UserServiceImpl implements UserService {
         for (CartItem item : cartItems) {
             Product product = productRepo.findById(item.getProductId())
                     .orElseThrow(() -> new ProductNotFoundException("INVALID.PRODUCT.ID"));
-            if(product.getQuantity() < item.getQuantity())
+            if (product.getQuantity() < item.getQuantity())
                 throw new ItemStockException("NOT.ENOUGH.QUANTITY.AVAILABLE");
             else
-                product.setQuantity(product.getQuantity()-item.getQuantity());
+                product.setQuantity(product.getQuantity() - item.getQuantity());
         }
 
 
@@ -91,7 +126,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int getCarItemsCount() {
         User user = getUser();
-        if(user.getCartItems() == null || user.getCartItems().isEmpty())
+        if (user.getCartItems() == null || user.getCartItems().isEmpty())
             return 0;
         else
             return user.getCartItems().size();

@@ -9,6 +9,7 @@ import com.ecommerce.requests.AddProductRequest;
 import com.ecommerce.requests.RegistrationRequest;
 import com.ecommerce.response.ProductResponse;
 import com.ecommerce.service.ProductService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
