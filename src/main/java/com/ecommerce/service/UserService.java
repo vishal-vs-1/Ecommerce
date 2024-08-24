@@ -12,5 +12,5 @@ public interface UserService {
     String orderItems();
     int getCarItemsCount();
     List<CartItemResponse> getUserCartItems();
-
+    void removeAllProductQuantityFromCart(int productId);
 }

@@ -90,6 +90,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void removeAllProductQuantityFromCart(int productId) {
+        User user = getUser();
+        if(user.getCartItems() == null || user.getCartItems().isEmpty())
+            throw new CartItemException("EMPTY.CART");
+        boolean found = false;
+        List<CartItem> cartItems = new ArrayList<>();
+        for (CartItem cartItem : user.getCartItems()) {
+            if(cartItem.getProductId() != productId){
+                cartItems.add(cartItem);
+            }else {
+                found = true;
+            }
+        }
+        if(!found)
+            throw new CartItemException("INVALID.CART.ITEM.SELECTED");
+        user.setCartItems(cartItems);
+
+    }
+
+    @Override
     public String removeProductFromCart(int id) {
         User user = getUser();
         List<CartItem> cartItems = user.getCartItems();
