@@ -14,9 +14,11 @@ import com.ecommerce.repository.ProductRepository;
 import com.ecommerce.repository.UserRepository;
 import com.ecommerce.requests.AddToCartRequest;
 import com.ecommerce.response.CartItemResponse;
+import com.ecommerce.service.MailService;
 import com.ecommerce.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -29,8 +31,8 @@ import java.util.Optional;
 @Transactional
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private CartItemRepository cartItemRepo;
 
+    private CartItemRepository cartItemRepo;
     private UserRepository userRepo;
     private ProductRepository productRepo;
     private OrderRepository orderRepo;
@@ -173,4 +175,5 @@ public class UserServiceImpl implements UserService {
         String currentPrincipalName = authentication.getName();
         return userRepo.findByEmail(currentPrincipalName).orElseThrow(() -> new RuntimeException("Something went wrong"));
     }
+
 }
