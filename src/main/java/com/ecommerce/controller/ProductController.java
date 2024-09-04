@@ -50,4 +50,9 @@ public class ProductController {
         return ResponseEntity.ok(productService.getNewCollection());
     }
 
+    @GetMapping("/products/discount/{percent}")
+    public ResponseEntity<List<ProductResponse>> getByDiscounts(@PathVariable int percent, @RequestParam String category){
+        return ResponseEntity.ok(productService.getByDiscounts(percent, category));
+    }
+
 }

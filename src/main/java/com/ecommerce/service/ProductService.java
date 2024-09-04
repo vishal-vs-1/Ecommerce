@@ -22,4 +22,6 @@ public interface ProductService {
     List<ProductResponse> getPopularProducts();
 
     List<ProductResponse> getNewCollection();
+
+    List<ProductResponse> getByDiscounts(int discount, String category);
 }

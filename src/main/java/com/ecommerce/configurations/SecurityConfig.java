@@ -30,6 +30,7 @@ public class SecurityConfig {
             "/add/products",
             "/products",
             "products/*",
+            "/products/discount/*",
             "/product/*",
             "/subscribe/*"
     };

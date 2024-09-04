@@ -94,5 +94,9 @@ public class ProductServiceImpl implements ProductService {
         return list;
     }
 
-
+    @Override
+    public List<ProductResponse> getByDiscounts(int discount, String category) {
+        List<ProductResponse> list = productRepository.findByDiscount(discount, Category.valueOf(category)).stream().map(ProductMapper::getProduct).toList();
+        return list;
+    }
 }

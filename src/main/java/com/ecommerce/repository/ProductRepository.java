@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +25,6 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     @Query("SELECT new com.ecommerce.dto.CartProductDto(p.imageUrl, p.cost, p.discount) FROM Product p WHERE p.id = :id")
     Optional<CartProductDto> getInfoForCartResponse(@Param("id") int id);
 
+    @Query("SELECT p FROM Product p JOIN p.categories c WHERE c = :category AND p.discount = :discount")
+    List<Product> findByDiscount(@Param("discount") int discount, @Param("category") Category category);
 }
