@@ -15,7 +15,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     @Query("SELECT p FROM Product p JOIN p.categories c WHERE c = :category")
     List<Product> findProductByCategory(@Param("category") Category category);
 
-    @Query(value = "SELECT * FROM product ORDER BY RAND() LIMIT 4", nativeQuery = true)
+    @Query(value = "SELECT * FROM product ORDER BY quantity DESC LIMIT 4", nativeQuery = true)
     List<Product> findPopularProducts();
 
     @Query(value = "SELECT * FROM product ORDER BY RAND() LIMIT 8", nativeQuery = true)
