@@ -1,6 +1,7 @@
 package com.ecommerce.service.impl;
 
 import com.ecommerce.entity.User;
+import com.ecommerce.exception.UserAlreadyRegisteredException;
 import com.ecommerce.mapper.UserMapper;
 import com.ecommerce.repository.UserRepository;
 import com.ecommerce.requests.AuthenticateRequest;
@@ -27,6 +28,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public String registerUser(RegistrationRequest req) {
+        if(userRepository.findByEmail(req.getEmail()).isPresent())
+            throw new UserAlreadyRegisteredException("User is already registered by this mail");
         req.setPassword(encoder.encode(req.getPassword()));
         User user = UserMapper.registerUserMapper(req);
         User pUser = userRepository.save(user);
