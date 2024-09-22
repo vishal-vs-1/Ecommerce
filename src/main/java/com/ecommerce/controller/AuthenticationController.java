@@ -6,8 +6,13 @@ import com.ecommerce.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @AllArgsConstructor
@@ -26,9 +31,18 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.authenticateUser(req));
     }
 
-    @GetMapping("/test")
-    String test(){
-        return "token working";
+    @GetMapping("/check/admin/test")
+    boolean test(){
+        boolean admin = false;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        for (GrantedAuthority authority : authentication.getAuthorities()) {
+            System.out.println(authority.getAuthority());
+            if(Objects.equals(authority.getAuthority(), "ADMIN")){
+                admin = true;
+            }
+        }
+        System.out.println(admin);
+        return admin;
     }
 
 }

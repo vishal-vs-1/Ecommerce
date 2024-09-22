@@ -6,8 +6,14 @@ import com.ecommerce.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -16,7 +22,20 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/add/product")
-    public ResponseEntity<String> addProduct(@RequestBody AddProductRequest req){
+    public ResponseEntity<String> addProduct(
+            @RequestPart("productDetails") AddProductRequest req,
+            @RequestPart("image") MultipartFile file) {
+        String name = UUID.randomUUID().toString();
+        try {
+            // Save the file to the specified directory
+            byte[] bytes = file.getBytes();
+            System.out.println(file.getOriginalFilename());
+            Path path = Paths.get("C:/Users/Vishal/Desktop/ecommerce/ecommerce-frontend/src/Components/Assets/" + name + ".png");
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        req.setImageUrl(name + ".png");
         return ResponseEntity.ok(productService.addProduct(req));
     }
 

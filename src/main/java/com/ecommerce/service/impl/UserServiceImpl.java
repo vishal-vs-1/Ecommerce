@@ -102,6 +102,7 @@ public class UserServiceImpl implements UserService {
             if(cartItem.getProductId() != productId){
                 cartItems.add(cartItem);
             }else {
+                cartItemRepo.delete(cartItem);
                 found = true;
             }
         }
