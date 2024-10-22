@@ -64,6 +64,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductResponse> getAllProducts() {
+        List<ProductResponse> list = new ArrayList<>();
+        productRepository.findAll().forEach(c-> list.add(ProductMapper.getProduct(c)));
+        if(list.isEmpty())
+            throw new ProductNotFoundException("No products in database");
+        return list;
+    }
+
+    @Override
     public List<ProductResponse> getProductsByCategory(String category) {
         List<Product> productList = productRepository
                 .findProductByCategory(Category.valueOf(category));
@@ -98,5 +107,13 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductResponse> getByDiscounts(int discount, String category) {
         List<ProductResponse> list = productRepository.findByDiscount(discount, Category.valueOf(category)).stream().map(ProductMapper::getProduct).toList();
         return list;
+    }
+
+    @Override
+    public String removeProduct(int id) {
+        if(productRepository.existsById(id)){
+            productRepository.deleteById(id);
+        }
+        return "product successfully deleted";
     }
 }

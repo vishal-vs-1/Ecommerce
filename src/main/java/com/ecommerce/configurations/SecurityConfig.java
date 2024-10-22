@@ -32,7 +32,8 @@ public class SecurityConfig {
             "products/*",
             "/products/discount/*",
             "/product/*",
-            "/subscribe/*"
+            "/subscribe/*",
+            "remove/product/{id}"
     };
 
     @Bean

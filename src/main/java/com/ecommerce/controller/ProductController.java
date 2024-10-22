@@ -4,6 +4,7 @@ import com.ecommerce.requests.AddProductRequest;
 import com.ecommerce.response.ProductResponse;
 import com.ecommerce.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,6 +50,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
+    @GetMapping("products/list")
+    public ResponseEntity<List<ProductResponse>> getAllProducts(){
+        return ResponseEntity.ok(productService.getAllProducts());
+    }
+
     @GetMapping("products")
     public ResponseEntity<List<ProductResponse>> getProductsByCategory(@RequestParam String category){
         return ResponseEntity.ok(productService.getProductsByCategory(category));
@@ -72,6 +78,12 @@ public class ProductController {
     @GetMapping("/products/discount/{percent}")
     public ResponseEntity<List<ProductResponse>> getByDiscounts(@PathVariable int percent, @RequestParam String category){
         return ResponseEntity.ok(productService.getByDiscounts(percent, category));
+    }
+
+    @DeleteMapping("remove/product/{id}")
+    public  ResponseEntity<String> removeProduct(@PathVariable int id){
+        String s = productService.removeProduct(id);
+        return new ResponseEntity<>(s, HttpStatus.ACCEPTED);
     }
 
 }

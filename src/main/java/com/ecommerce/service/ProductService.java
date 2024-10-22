@@ -15,6 +15,8 @@ public interface ProductService {
 
     ProductResponse getProductById(int id);
 
+    List<ProductResponse> getAllProducts();
+
     List<ProductResponse> getProductsByCategory(String category);
 
     List<String> getAllCategories();
@@ -24,4 +26,6 @@ public interface ProductService {
     List<ProductResponse> getNewCollection();
 
     List<ProductResponse> getByDiscounts(int discount, String category);
+
+    String removeProduct(int id);
 }
